@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     height: height / 3,
     marginHorizontal: '5%',
-    position: 'sticky'
+
   },
   heading: {
     alignItems: "center",
