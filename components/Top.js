@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Dimensions, } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import {
   Ionicons,
   MaterialIcons,
@@ -7,7 +14,8 @@ import {
 } from "@expo/vector-icons";
 const { height } = Dimensions.get("screen");
 
-function Top({folderCount}) {
+function Top({ folderCount }) {
+  const navigation = useNavigation();
   return (
     <View style={styles.top}>
       <View style={styles.heading}>
@@ -15,7 +23,9 @@ function Top({folderCount}) {
         <Text style={styles.headingText2}>{folderCount} Folders, 24 Notes</Text>
       </View>
       <View style={styles.icons}>
-        <Ionicons name="ios-menu-outline" size={30} color="black" />
+        <TouchableOpacity onPress={() => navigation.navigate("FolderTest")}>
+          <Ionicons name="ios-menu-outline" size={30} color="black" />
+        </TouchableOpacity>
         <View style={{ flexDirection: "row" }}>
           <MaterialIcons
             style={{ paddingRight: 15 }}
@@ -43,8 +53,7 @@ const styles = StyleSheet.create({
   top: {
     justifyContent: "space-between",
     height: height / 3,
-    marginHorizontal: '5%',
-
+    marginHorizontal: "5%",
   },
   heading: {
     alignItems: "center",
