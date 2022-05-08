@@ -9,7 +9,7 @@ const FolderTest = () => {
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('Home')}>
-                <Text style={{color: '#eee'}}>Go back Home</Text>
+                <Text style={{color: '#111'}}>Go back Home</Text>
             </TouchableOpacity>
         </View>
     );
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 
     button: {
         borderRadius: 10,
-        backgroundColor: '#111',
+        backgroundColor: '#abcdef',
         padding: 10,
     }
 })
