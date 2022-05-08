@@ -23,7 +23,7 @@ function Top({ folderCount }) {
         <Text style={styles.headingText2}>{folderCount} Folders, 24 Notes</Text>
       </View>
       <View style={styles.icons}>
-        <TouchableOpacity onPress={() => navigation.navigate("FolderTest")}>
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <Ionicons name="ios-menu-outline" size={30} color="black" />
         </TouchableOpacity>
         <View style={{ flexDirection: "row" }}>

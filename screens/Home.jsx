@@ -15,8 +15,6 @@ import DeleteModal from "../components/DeleteModal";
 import FolderModal from "../components/FolderModal";
 import { StatusBar } from "expo-status-bar";
 
-
-
 const folders = [
   { name: "Trip to Dubai", entry: 1, color: "#f9bb05" },
   { name: "Shopping List", entry: 2, color: "#a3bcfc" },
@@ -27,10 +25,9 @@ const folders = [
 let indexOfLongPressedFolder = 0;
 
 const Home = () => {
-    const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const [deleteModalOpen, setdeleteModalOpen] = useState(false);
   const [state, setstate] = useState(folders);
-
 
   const addNewFolder = (folderName, folderColor) => {
     let newFolder = {
@@ -47,12 +44,10 @@ const Home = () => {
 
   const deleteFolder = () => {
     let newState = [...state];
-    newState.splice(indexOfLongPressedFolder,1)
-    setstate(newState)
+    newState.splice(indexOfLongPressedFolder, 1);
+    setstate(newState);
     setdeleteModalOpen(false);
   };
-
-  
 
   return (
     <SafeAreaView style={styles.container}>
@@ -88,10 +83,10 @@ const Home = () => {
       </TouchableOpacity>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
-    container: {
+  container: {
     position: "relative",
     flex: 1,
     backgroundColor: "#fff",
@@ -117,6 +112,6 @@ const styles = StyleSheet.create({
     shadowRadius: 6.0,
     elevation: 5,
   },
-})
+});
 
 export default Home;
