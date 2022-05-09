@@ -18,6 +18,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import Home from "./screens/Home";
 import FoldersManager from "./screens/FoldersManager";
+import Favorite from "./screens/Favorite";
+import Trash from "./screens/Trash";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -27,15 +29,7 @@ function CustomDrawerContent({ props, navigation }) {
   const [activeDrawerItem, setActiveDrawerItem] = useState("notes");
   return (
     <View style={{ flex: 1, justifyContent: "space-between" }}>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: 10,
-          margin: 5,
-        }}
-      >
+      <View style={styles.drawerItem}>
         <TouchableOpacity>
           <Ionicons name="ios-menu-outline" size={26} color="#777" />
         </TouchableOpacity>
@@ -47,19 +41,16 @@ function CustomDrawerContent({ props, navigation }) {
         <View style={{ flex: 1 }}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("FoldersManager");
+              navigation.navigate("Home");
               setActiveDrawerItem("notes");
             }}
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: 10,
-              margin: 5,
-              backgroundColor:
-                activeDrawerItem === "notes" ? "#CBDEF6" : "#fff",
-              borderRadius: 10,
-            }}
+            style={[
+              styles.drawerItem,
+              {
+                backgroundColor:
+                  activeDrawerItem === "notes" ? "#CBDEF6" : "#fff",
+              },
+            ]}
           >
             <View
               style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
@@ -69,26 +60,23 @@ function CustomDrawerContent({ props, navigation }) {
                 size={30}
                 color="#000"
               />
-              <Text style={{ fontSize: 20, marginLeft: 15 }}>All Notes</Text>
+              <Text style={styles.drawerItemText}>All Notes</Text>
             </View>
             <Text>100</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("FoldersManager");
+              navigation.navigate("Favorite");
               setActiveDrawerItem("favorite");
             }}
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: 10,
-              margin: 5,
-              backgroundColor:
-                activeDrawerItem === "favorite" ? "#CBDEF6" : "#fff",
-              borderRadius: 10,
-            }}
+            style={[
+              styles.drawerItem,
+              {
+                backgroundColor:
+                  activeDrawerItem === "favorite" ? "#CBDEF6" : "#fff",
+              },
+            ]}
           >
             <View
               style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
@@ -98,26 +86,23 @@ function CustomDrawerContent({ props, navigation }) {
                 size={30}
                 color="#000"
               />
-              <Text style={{ fontSize: 20, marginLeft: 15 }}>Favorite</Text>
+              <Text style={styles.drawerItemText}>Favorite</Text>
             </View>
             <Text>100</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("FoldersManager");
+              navigation.navigate("Trash");
               setActiveDrawerItem("trash");
             }}
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: 10,
-              margin: 5,
-              backgroundColor:
-                activeDrawerItem === "trash" ? "#CBDEF6" : "#fff",
-              borderRadius: 10,
-            }}
+            style={[
+              styles.drawerItem,
+              {
+                backgroundColor:
+                  activeDrawerItem === "trash" ? "#CBDEF6" : "#fff",
+              },
+            ]}
           >
             <View
               style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
@@ -127,26 +112,24 @@ function CustomDrawerContent({ props, navigation }) {
                 size={30}
                 color="#000"
               />
-              <Text style={{ fontSize: 20, marginLeft: 15 }}>Trash</Text>
+              <Text style={styles.drawerItemText}>Trash</Text>
             </View>
             <Text>100</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("FoldersManager");
+              
               setActiveDrawerItem("folders");
+              navigation.navigate("FoldersManager");
             }}
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: 10,
-              margin: 5,
-              backgroundColor:
-                activeDrawerItem === "folders" ? "#CBDEF6" : "#fff",
-              borderRadius: 10,
-            }}
+            style={[
+              styles.drawerItem,
+              {
+                backgroundColor:
+                  activeDrawerItem === "folders" ? "#CBDEF6" : "#fff",
+              },
+            ]}
           >
             <View
               style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
@@ -156,7 +139,7 @@ function CustomDrawerContent({ props, navigation }) {
                 size={30}
                 color="#000"
               />
-              <Text style={{ fontSize: 20, marginLeft: 15 }}>folders</Text>
+              <Text style={styles.drawerItemText}>Folders</Text>
             </View>
             <Text>100</Text>
           </TouchableOpacity>
@@ -182,58 +165,39 @@ export default function App() {
   return (
     <NavigationContainer>
       <Drawer.Navigator
-        initialRouteName="Home"
+        initialRouteName="FoldersManager"
         drawerContent={(props) => <CustomDrawerContent {...props} />}
         screenOptions={{
-          headerShown: true,
+          headerShown: false,
           drawerType: "front",
           drawerStyle: {
-            width: width / 1.15,
+            width: width / 1.25,
             marginVertical: 40,
             borderTopRightRadius: 15,
             borderBottomRightRadius: 15,
           },
         }}
       >
-        <Drawer.Screen
-          name="Home"
-          component={Home}
-          options={{
-            drawerIcon: ({ focused, color, size }) => (
-              <MaterialCommunityIcons
-                name={focused ? "notebook" : "notebook-outline"}
-                size={size}
-                color={color}
-              />
-            ),
-            drawerLabel: () => (
-              <View>
-                <Text>All Notes</Text>
-                <Text>1000</Text>
-              </View>
-            ),
-
-            drawerItemStyle: { flex: 1, justifyContent: "center" },
-            drawerContentStyle: { flex: 1, justifyContent: "center" },
-          }}
-        />
-        <Drawer.Screen
-          name="FoldersManager"
-          component={FoldersManager}
-          options={{
-            title: "Folders",
-            drawerIcon: ({ focused, color, size }) => (
-              <MaterialCommunityIcons
-                name={focused ? "folder" : "folder-outline"}
-                size={size}
-                color={color}
-              />
-            ),
-          }}
-        />
+        <Drawer.Screen name="Home" component={Home} />
+        <Drawer.Screen name="FoldersManager" component={FoldersManager} />
+        <Drawer.Screen name="Favorite" component={Favorite} />
+        <Drawer.Screen name="Trash" component={Trash} />
+        
       </Drawer.Navigator>
     </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  drawerItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 15,
+    marginRight: 15,
+    borderTopRightRadius: 25,
+    borderBottomRightRadius: 25,
+  },
+
+  drawerItemText: { fontSize: 18, marginLeft: 15, color: "#555" },
+});

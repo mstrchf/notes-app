@@ -3,12 +3,12 @@ import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 import { useNavigation } from "@react-navigation/native";
 
-const FoldersManager = () => {
+const Favorite = () => {
 
     const navigation = useNavigation()
     return (
         <View style={styles.container}>
-        <Text>Folders Screen</Text>
+        <Text>Favorite Screen</Text>
             <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('Home')}>
                 <Text style={{color: '#111'}}>Go back Home</Text>
             </TouchableOpacity>
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default FoldersManager;
+export default Favorite;
