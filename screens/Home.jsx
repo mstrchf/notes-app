@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import Main from "../components/Main";
 import Top from "../components/Top";
 import DeleteModal from "../components/DeleteModal";
@@ -24,10 +24,11 @@ const folders = [
 
 let indexOfLongPressedFolder = 0;
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [deleteModalOpen, setdeleteModalOpen] = useState(false);
   const [state, setstate] = useState(folders);
+  const [create, setCreate] = useState(false);
 
   const addNewFolder = (folderName, folderColor) => {
     let newFolder = {
@@ -74,13 +75,53 @@ const Home = () => {
         </View>
       </ScrollView>
 
-      <TouchableOpacity
-        activeOpacity={0.75}
-        style={styles.button}
-        onPress={() => setModalOpen(true)}
-      >
-        <Entypo name="new-message" size={25} color="#eb5e28" />
-      </TouchableOpacity>
+      {create ? (
+        <View style={styles.multiButton}>
+          <TouchableOpacity
+            activeOpacity={0.75}
+            style={styles.button}
+            onPress={() => {
+              setCreate(false);
+              navigation.navigate("NewNote");
+            }}
+          >
+            <Entypo name="new-message" size={22} color="#eb5e28" />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              setCreate(false);
+            }}
+            style={{padding: 5 }}
+          >
+            <MaterialCommunityIcons name="close" size={24} color="black" />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            activeOpacity={0.75}
+            style={styles.button}
+            onPress={() => {
+              setCreate(false);
+              setModalOpen(true);
+            }}
+          >
+            <MaterialCommunityIcons
+              name="folder-plus-outline"
+              size={26}
+              color="#eb5e28"
+              
+            />
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <TouchableOpacity
+          activeOpacity={0.75}
+          style={styles.buttonPlus}
+          onPress={() => setCreate(true)}
+        >
+          <MaterialCommunityIcons  name="plus" size={35} color="black" />
+        </TouchableOpacity>
+      )}
     </SafeAreaView>
   );
 };
@@ -93,7 +134,28 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? 25 : 0,
   },
 
-  button: {
+  multiButton: {
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 10,
+    width: 60,
+    height: 145,
+    bottom: 30,
+    right: 20,
+    backgroundColor: "#fff",
+    borderRadius: 30,
+    shadowColor: "#777",
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 6.0,
+    elevation: 5,
+  },
+
+  buttonPlus: {
     position: "absolute",
     alignItems: "center",
     justifyContent: "center",
@@ -103,7 +165,7 @@ const styles = StyleSheet.create({
     right: 20,
     backgroundColor: "#fff",
     borderRadius: 30,
-    shadowColor: "#555",
+    shadowColor: "#777",
     shadowOffset: {
       width: 0,
       height: 0,
@@ -112,6 +174,12 @@ const styles = StyleSheet.create({
     shadowRadius: 6.0,
     elevation: 5,
   },
+
+  button: {
+backgroundColor: '#ddd',
+borderRadius: 25,
+padding: 10
+  }
 });
 
 export default Home;
